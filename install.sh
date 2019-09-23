@@ -1,15 +1,6 @@
-su
 apt update
 apt upgrade
-apt install \
-	vim \
-	openssh-server \
-	postfix \
-	iptables \
-	iptables-persistent \
-	portsentry \
-	fail2ban \
-	cron \
+apt install vim openssh-server  postfix  iptables  iptables-persistent  portsentry  fail2ban  cron sudo 
 
 # sudo for alarm
 cat basic/sudoers > /etc/sudoers
