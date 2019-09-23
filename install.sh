@@ -13,5 +13,10 @@ cat authorized_keys > /home/alarm/.ssh/authorized_keys
 cp cron/modif_crontab.sh /etc/cron.d/.
 cp cron/update.sh  /etc/cron.d/.
 cat cron/crontab
+# postfix
+service start postfix
+cat basic/aliases > /etc/aliases
+postalias /etc/aliases
+
 read 
 crontab -e
