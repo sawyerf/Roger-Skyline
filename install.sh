@@ -17,6 +17,11 @@ cat cron/crontab
 service start postfix
 cat basic/aliases > /etc/aliases
 postalias /etc/aliases
+# portsentry
+cat /iptables/portsentry.conf > /etc/portsentry/portsentry.conf
+# iptables
+bash iptables/iptables.sh
+iptables-save > /etc/iptables/rules.v4
 
 read 
 crontab -e

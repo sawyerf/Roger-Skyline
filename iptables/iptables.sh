@@ -14,5 +14,16 @@ iptables -t filter -A OUTPUT -p tcp --sport 1357 -m conntrack --ctstate ESTABLIS
 iptables -t filter -A OUTPUT -p tcp -m multiport --dports 80,443,8000 -m conntrack --ctstate NEW,RELATED,ESTABLISHED -j ACCEPT  
 iptables -t filter -A INPUT -p tcp -m multiport --sports 80,443,8000 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
+TCP_PORTS="1 11 15 22 79 111 119 143 540 635 1080 1524 1356 1358 2000"
+UDP_PORTS="1 7 9 69 161 162 513 635 640 641 700"
+for TCP_PORT in $TCP_PORTS
+do
+	iptables -t filter -A INPUT -p tcp --dport $TCP_PORT -m conntrack --ctstate NEW -j ACCEPT
+done
+for UDP_PORT in $UDP_PORTS
+do
+	iptables -t filter -A INPUT -p udp --dport $UDP_PORT -m conntrack --ctstate NEW -j ACCEPT
+done
+
 iptables -t filter -A OUTPUT -o lo -j ACCEPT
 iptables -t filter -A INPUT -i lo -j ACCEPT
