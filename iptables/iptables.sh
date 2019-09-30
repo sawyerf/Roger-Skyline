@@ -27,3 +27,10 @@ done
 
 iptables -t filter -A OUTPUT -o lo -j ACCEPT
 iptables -t filter -A INPUT -i lo -j ACCEPT
+iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 40 --connlimit-mask 20 -j DROP
+iptables -I INPUT -p tcp --dport 443 -m connlimit --connlimit-above 40 --connlimit-mask 20 -j DROP
+iptables -I INPUT -p tcp --dport 1357 -m connlimit --connlimit-above 40 --connlimit-mask 20 -j DROP
+
+iptables -I INPUT -p tcp --dport 1357 -m state --state NEW -m recent --set
+iptables -I INPUT -p tcp --dport 1357 -m state --state NEW -m recent --update --seconds 10 --hitcount 2 -j DROP
+iptables -I INPUT -p tcp --dport 1357 -m connlimit --connlimit-above 2 -j DROP
